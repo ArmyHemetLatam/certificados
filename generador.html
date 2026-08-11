@@ -1,0 +1,12 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Generador HEMET</title><style>body{background:#0a0a0a;color:#fff;font-family:monospace;padding:15px}input{width:100%;padding:12px;margin:8px 0;background:#000;border:1px solid #c9b07a;color:#fff}button{width:100%;padding:15px;background:#c9b07a;color:#000;font-weight:bold;border:none;margin-top:10px}canvas{width:100%;border:2px solid #333;margin-top:15px}</style></head><body>
+<h3>GENERADOR OFICIAL HEMET LATAM</h3>
+<input id="nombre" placeholder="Nombre del soldado">
+<input id="idcert" value="HEM-ACAD-2026-0001-173">
+<input id="codigo" value="003F-008X-00LL">
+<button onclick="generar()">GENERAR</button>
+<button onclick="descargar()" style="background:#7aff8a">DESCARGAR</button>
+<canvas id="c"></canvas>
+<script>
+const img=new Image(); img.src='plantilla.jpg'; img.onload=()=>generar();
+function generar(){const canvas=document.getElementById('c');const ctx=canvas.getContext('2d');canvas.width=img.width;canvas.height=img.height;ctx.drawImage(img,0,0);ctx.fillStyle='#d4e5a0';ctx.font='bold 42px serif';ctx.textAlign='center';ctx.fillText((document.getElementById('nombre').value.toUpperCase()||'NOMBRE'),canvas.width/2,canvas.height*0.44);ctx.fillStyle='#c9b07a';ctx.font='18px monospace';ctx.textAlign='left';ctx.fillText(document.getElementById('idcert').value,canvas.width*0.788,canvas.height*0.39);ctx.fillStyle='#fff';ctx.font='20px monospace';ctx.fillText(document.getElementById('codigo').value,canvas.width*0.788,canvas.height*0.90);const id=document.getElementById('idcert').value;const qr=new Image();qr.crossOrigin='anonymous';qr.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://armyhemetlatam.github.io/certificados/?id='+id;qr.onload=()=>{ctx.drawImage(qr,canvas.width*0.789,canvas.height*0.23,canvas.width*0.105,canvas.width*0.105);};}function descargar(){const a=document.createElement('a');a.download=document.getElementById('idcert').value+'.jpg';a.href=document.getElementById('c').toDataURL('image/jpeg',0.9);a.click();}
+</script></body></html>
