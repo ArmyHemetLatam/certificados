@@ -46,10 +46,39 @@ let c1=((i*123)%10000).toString(36).toUpperCase().padStart(4,'0');
 let c2=((i*321)%10000).toString(36).toUpperCase().padStart(4,'0');
 let c3=((i*777)%10000).toString(36).toUpperCase().padStart(4,'0');
 let cod=`${c1}-${c2}-${c3}`;
-let nombres=["JUAN PEREZ","CARLOS GARCIA","MIGUEL RODRIGUEZ","JOSE MARTINEZ","LUIS HERNANDEZ","JORGE LOPEZ","FERNANDO GONZALEZ","RICARDO SANCHEZ","ALEJANDRO RAMIREZ","DANIEL TORRES"];
-let n=nombres[i%10]+" "+nombres[(i*3)%10];
-db[id]={nombre:n,curso:"CURSO BASICO DE OPERACIONES TACTICAS HEMET",codigo:cod,fecha:"15 de Agosto, 2026",estado:"ACTIVO - AUTORIZADO"};
+<script>
+function genDB(){
+let db={};
+for(let i=1;i<=150;i++){
+let num=String(i).padStart(4,'0');
+let suf=100+((i*73)%900);
+let id=`HEM-ACAD-2026-${num}-${suf}`;
+let c1=((i*123)%10000).toString(36).toUpperCase().padStart(4,'0');
+let c2=((i*321)%10000).toString(36).toUpperCase().padStart(4,'0');
+let c3=((i*777)%10000).toString(36).toUpperCase().padStart(4,'0');
+let cod=`${c1}-${c2}-${c3}`;
+db[id]={curso:"CURSO BASICO DE OPERACIONES TACTICAS HEMET",codigo:cod,estado:"ACTIVO - AUTORIZADO"};
 }
+return db;
+}
+const DB=genDB();
+function verificar(){
+let raw=document.getElementById('inputId').value.trim().toUpperCase();
+let res=document.getElementById('result');
+if(!raw){res.style.display='block';res.innerHTML='<span style=color:#ff4d4d>Ingrese un ID</span>';return;}
+let info=DB[raw];
+res.style.display='block';
+if(!info){
+res.className='novalido';
+res.innerHTML=`<h2 style="color:#ff4d4d;text-align:center">✕ NO VALIDO</h2><p style="text-align:center;margin-top:10px">ID: ${raw}<br>No encontrado en base oficial</p>`;
+}else{
+res.className='valido';
+res.innerHTML=`<div style="text-align:center"><div style="color:#c9b07a">★ CERTIFICADO OFICIAL ★</div><h2 style="color:#7aff8a;font-size:28px;margin:10px 0">✓ VALIDO Y ACTIVO</h2><div style="background:#000;border:1px solid #333;padding:12px;margin:12px 0;text-align:left;font-size:13px"><b>CURSO:</b> ${info.curso}<br><b>ID:</b> ${raw}<br><b>CODIGO DE VERIFICACION:</b> ${info.codigo}<br><b>ESTADO:</b> <span style="color:#7aff8a">${info.estado}</span></div><div style="font-size:9px;color:#666">Verificado en armyhemetlatam.github.io - Sistema Cifrado</div></div>`;
+}
+}
+let p=new URLSearchParams(location.search);
+if(p.get('id')){document.getElementById('inputId').value=p.get('id');setTimeout(verificar,600);}
+</script>
 return db;
 }
 const DB=genDB();
