@@ -1,12 +1,36 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Generador HEMET</title><style>body{background:#0a0a0a;color:#fff;font-family:monospace;padding:15px}input{width:100%;padding:12px;margin:8px 0;background:#000;border:1px solid #c9b07a;color:#fff}button{width:100%;padding:15px;background:#c9b07a;color:#000;font-weight:bold;border:none;margin-top:10px}canvas{width:100%;border:2px solid #333;margin-top:15px}</style></head><body>
-<h3>GENERADOR OFICIAL HEMET LATAM</h3>
-<input id="nombre" placeholder="Nombre del soldado">
-<input id="idcert" value="HEM-ACAD-2026-0001-173">
-<input id="codigo" value="003F-008X-00LL">
-<button onclick="generar()">GENERAR</button>
-<button onclick="descargar()" style="background:#7aff8a">DESCARGAR</button>
-<canvas id="c"></canvas>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generador HEMET LATAM</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+body{background:#0a0a0a;color:#fff;font-family:Arial;text-align:center;padding:20px}
+input,button{padding:12px;margin:5px;width:90%;max-width:400px;font-size:16px;border-radius:8px;border:none}
+button{background:#c9a227;color:#000;font-weight:bold;cursor:pointer}
+canvas{max-width:100%;margin-top:20px;border:2px solid #c9a227}
+#qrcode{display:none}
+</style>
+</head>
+<body>
+<h2>🎖️ GENERADOR HEMET LATAM</h2>
+<input id="nombre" placeholder="Nombre del aspirante">
+<input id="codigo" placeholder="Código ej: HEM-ACAD-2024-0520-001" value="HEM-ACAD-2024-0520-001">
+<br>
+<button onclick="generar()">GENERAR CERTIFICADO</button>
+<button onclick="descargar()">DESCARGAR JPG</button>
+<div id="qrcode"></div>
+<canvas id="canvas" width="1600" height="1131"></canvas>
+
 <script>
-const img=new Image(); img.src='plantilla.jpg'; img.onload=()=>generar();
-function generar(){const canvas=document.getElementById('c');const ctx=canvas.getContext('2d');canvas.width=img.width;canvas.height=img.height;ctx.drawImage(img,0,0);ctx.fillStyle='#d4e5a0';ctx.font='bold 42px serif';ctx.textAlign='center';ctx.fillText((document.getElementById('nombre').value.toUpperCase()||'NOMBRE'),canvas.width/2,canvas.height*0.44);ctx.fillStyle='#c9b07a';ctx.font='18px monospace';ctx.textAlign='left';ctx.fillText(document.getElementById('idcert').value,canvas.width*0.788,canvas.height*0.39);ctx.fillStyle='#fff';ctx.font='20px monospace';ctx.fillText(document.getElementById('codigo').value,canvas.width*0.788,canvas.height*0.90);const id=document.getElementById('idcert').value;const qr=new Image();qr.crossOrigin='anonymous';qr.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://armyhemetlatam.github.io/certificados/?id='+id;qr.onload=()=>{ctx.drawImage(qr,canvas.width*0.789,canvas.height*0.23,canvas.width*0.105,canvas.width*0.105);};}function descargar(){const a=document.createElement('a');a.download=document.getElementById('idcert').value+'.jpg';a.href=document.getElementById('c').toDataURL('image/jpeg',0.9);a.click();}
-</script></body></html>
+const canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d');
+let qrCanvas=null;
+
+function generar(){
+const nombre=document.getElementById('nombre').value.toUpperCase() || "NOMBRE DEL ASPIRANTE";
+const codigo=document.getElementById('codigo').value || "HEM-ACAD-2024-0520-001";
+
+// Fondo negro
+ctx.fillStyle="#
