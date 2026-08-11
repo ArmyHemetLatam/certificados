@@ -8,7 +8,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Share+Tech+Mono&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#050a0e;color:#d0d0d0;font-family:'Share Tech Mono',monospace;min-height:100vh}
-#bg{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(rgba(0,0,0,0.85),rgba(0,0,0,0.85)),url('fondo.jpg');background-size:cover;z-index:-1}
+#bg{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(rgba(0,0,0,0.88),rgba(0,0,0,0.88)),url('fondo.jpg');background-size:cover;z-index:-1}
 .wrap{max-width:900px;margin:0 auto;padding:20px}
 .header{text-align:center;border:3px solid #c9b07a;padding:25px;background:rgba(0,0,0,0.9);box-shadow:0 0 30px rgba(201,176,122,0.3)}
 .header h1{font-family:'Black Ops One';font-size:28px;color:#c9b07a;letter-spacing:2px}
@@ -18,7 +18,8 @@ body{background:#050a0e;color:#d0d0d0;font-family:'Share Tech Mono',monospace;mi
 .search button{padding:14px 25px;background:#c9b07a;color:#000;border:none;font-weight:bold;cursor:pointer;font-family:'Black Ops One';letter-spacing:2px}
 #result{margin-top:20px;background:rgba(0,0,0,0.95);border:2px solid #333;padding:20px;display:none}
 .valido{border-color:#7aff8a!important;box-shadow:0 0 20px rgba(122,255,138,0.3)}
-.novalido{border-color:#ff4d4d!important}</style>
+.novalido{border-color:#ff4d4d!important}
+</style>
 </head>
 <body>
 <div id="bg"></div>
@@ -46,17 +47,6 @@ let c1=((i*123)%10000).toString(36).toUpperCase().padStart(4,'0');
 let c2=((i*321)%10000).toString(36).toUpperCase().padStart(4,'0');
 let c3=((i*777)%10000).toString(36).toUpperCase().padStart(4,'0');
 let cod=`${c1}-${c2}-${c3}`;
-<script>
-function genDB(){
-let db={};
-for(let i=1;i<=150;i++){
-let num=String(i).padStart(4,'0');
-let suf=100+((i*73)%900);
-let id=`HEM-ACAD-2026-${num}-${suf}`;
-let c1=((i*123)%10000).toString(36).toUpperCase().padStart(4,'0');
-let c2=((i*321)%10000).toString(36).toUpperCase().padStart(4,'0');
-let c3=((i*777)%10000).toString(36).toUpperCase().padStart(4,'0');
-let cod=`${c1}-${c2}-${c3}`;
 db[id]={curso:"CURSO BASICO DE OPERACIONES TACTICAS HEMET",codigo:cod,estado:"ACTIVO - AUTORIZADO"};
 }
 return db;
@@ -73,27 +63,7 @@ res.className='novalido';
 res.innerHTML=`<h2 style="color:#ff4d4d;text-align:center">✕ NO VALIDO</h2><p style="text-align:center;margin-top:10px">ID: ${raw}<br>No encontrado en base oficial</p>`;
 }else{
 res.className='valido';
-res.innerHTML=`<div style="text-align:center"><div style="color:#c9b07a">★ CERTIFICADO OFICIAL ★</div><h2 style="color:#7aff8a;font-size:28px;margin:10px 0">✓ VALIDO Y ACTIVO</h2><div style="background:#000;border:1px solid #333;padding:12px;margin:12px 0;text-align:left;font-size:13px"><b>CURSO:</b> ${info.curso}<br><b>ID:</b> ${raw}<br><b>CODIGO DE VERIFICACION:</b> ${info.codigo}<br><b>ESTADO:</b> <span style="color:#7aff8a">${info.estado}</span></div><div style="font-size:9px;color:#666">Verificado en armyhemetlatam.github.io - Sistema Cifrado</div></div>`;
-}
-}
-let p=new URLSearchParams(location.search);
-if(p.get('id')){document.getElementById('inputId').value=p.get('id');setTimeout(verificar,600);}
-</script>
-return db;
-}
-const DB=genDB();
-function verificar(){
-let raw=document.getElementById('inputId').value.trim().toUpperCase();
-let res=document.getElementById('result');
-if(!raw){res.style.display='block';res.innerHTML='<span style=color:#ff4d4d>Ingrese un ID</span>';return;}
-let info=DB[raw];
-res.style.display='block';
-if(!info){
-res.className='novalido';
-res.innerHTML=`<h2 style="color:#ff4d4d;text-align:center">✕ NO VALIDO</h2><p style="text-align:center;margin-top:10px">ID: ${raw}<br>No encontrado en base oficial HEMET</p>`;
-}else{
-res.className='valido';
-res.innerHTML=`<div style="text-align:center"><div style="color:#c9b07a">★ CERTIFICADO OFICIAL ★</div><h2 style="color:#7aff8a;font-size:28px;margin:10px 0">✓ VALIDO Y ACTIVO</h2><div style="background:#000;border:1px solid #333;padding:12px;margin:12px 0;text-align:left;font-size:13px"><b>NOMBRE:</b> ${info.nombre}<br><b>CURSO:</b> ${info.curso}<br><b>ID:</b> ${raw}<br><b>CODIGO:</b> ${info.codigo}<br><b>FECHA:</b> ${info.fecha}<br><b>ESTADO:</b> <span style="color:#7aff8a">${info.estado}</span></div><div style="font-size:9px;color:#666">Verificado en armyhemetlatam.github.io</div></div>`;
+res.innerHTML=`<div style="text-align:center"><div style="color:#c9b07a">★ CERTIFICADO OFICIAL ★</div><h2 style="color:#7aff8a;font-size:28px;margin:10px 0">✓ VALIDO Y ACTIVO</h2><div style="background:#000;border:1px solid #333;padding:12px;margin:12px 0;text-align:left;font-size:13px"><b>CURSO:</b> ${info.curso}<br><b>ID:</b> ${raw}<br><b>CODIGO:</b> ${info.codigo}<br><b>ESTADO:</b> <span style="color:#7aff8a">${info.estado}</span></div><div style="font-size:9px;color:#666">Verificado en armyhemetlatam.github.io</div></div>`;
 }
 }
 let p=new URLSearchParams(location.search);
