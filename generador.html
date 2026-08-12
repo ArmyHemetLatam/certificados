@@ -2,56 +2,65 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HEMET - GENERADOR SOLO</title>
+<title>HEMET MILITAR - SOLO CON FIRMAS</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-body{background:#000;color:#d4af37;text-align:center;font-family:Arial;margin:0;padding:12px}
+body{background:#000;color:#d4af37;text-align:center;font-family:Arial;margin:0;padding:10px}
 .panel{background:#111;border:2px solid #b8922d;border-radius:12px;max-width:540px;margin:auto;padding:16px}
 input,select{width:92%;padding:11px;border-radius:8px;border:1px solid #b8922d;background:#222;color:#fff;margin:4px}
 .row{display:flex;gap:5px;width:92%;margin:auto}
-.btn{background:linear-gradient(#f3d87a,#b8922d);color:#000;border:none;padding:13px;width:92%;border-radius:10px;font-weight:900;margin-top:10px}
-canvas{max-width:98%;border:2px solid #b8922d;border-radius:10px;margin:15px auto;display:block}
+.btn{background:linear-gradient(#f3d87a,#b8922d);color:#000;border:none;padding:13px;width:92%;border-radius:10px;font-weight:900;margin-top:10px;cursor:pointer}
+canvas{max-width:98%;border:2px solid #b8922d;border-radius:10px;margin:15px auto;display:block;background:#000}
 </style>
 </head>
 <body>
-<h2 style="font-family:Cinzel">CERTIFICADOS HEMET</h2>
+<h2 style="font-family:Cinzel">BASE MILITAR HEMET</h2>
 <div class="panel">
-<input id="n" placeholder="NOMBRE DEL ASPIRANTE" oninput="g()">
+<input id="n" placeholder="NOMBRE DEL ASPIRANTE" oninput="g()" maxlength="36">
 <div class="row"><input id="d" type="number" value="11" oninput="g()"><select id="m" onchange="g()"><option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option><option>Mayo</option><option>Junio</option><option>Julio</option><option selected>Agosto</option><option>Septiembre</option><option>Octubre</option><option>Noviembre</option><option>Diciembre</option></select><input id="a" type="number" value="2026" oninput="g()"></div>
 <input id="c" value="HEM-ACAD-2026-0002-792" oninput="g()">
-<button class="btn" onclick="g()">⚡ GENERAR</button>
-<button class="btn" style="background:#222;color:#d4af37;border:1px solid" onclick="b()">⬇️ DESCARGAR</button>
+<button class="btn" onclick="g()">⚡ GENERAR CERTIFICADO</button>
+<button class="btn" style="background:#222;color:#d4af37;border:1px solid" onclick="b()">⬇️ DESCARGAR HD</button>
 </div>
 <canvas id="cv" width="2400" height="1600"></canvas>
 <script>
 const cv=document.getElementById('cv'), x=cv.getContext('2d');
 function plantilla(){
  x.fillStyle='#08080a'; x.fillRect(0,0,2400,1600);
- x.strokeStyle='#b8922d'; x.lineWidth=6; x.strokeRect(20,20,2360,1560);
- x.lineWidth=2; x.strokeRect(45,45,2310,1510);
- x.strokeStyle='#d4af37'; x.lineWidth=1.5; x.strokeRect(70,70,2260,1460);
- x.fillStyle='#d4af37'; x.textAlign='center';
- x.font='22px Cinzel'; x.fillText('BASE MILITAR DE HEMET',1200,165);
- x.font='bold 98px Cinzel'; x.fillStyle='#e8c765'; x.fillText('CERTIFICADO DE GRADUACIÓN',1200,350);
- x.strokeStyle='#b8922d'; x.lineWidth=1.5; x.beginPath(); x.moveTo(700,900); x.lineTo(1700,900); x.stroke();
- x.fillStyle='#c9a227'; x.font='24px Arial'; x.fillText('( NOMBRE DEL ASPIRANTE )',1200,940);
- x.beginPath(); x.moveTo(180,1100); x.lineTo(950,1100); x.stroke(); x.moveTo(1450,1100); x.lineTo(2220,1100); x.stroke();
- x.font='20px Cinzel'; x.fillText('INSTRUCTOR / COMANDANTE',565,1135); x.fillText('OFICIAL DE REGISTRO',1835,1135);
- x.beginPath(); x.moveTo(180,1290); x.lineTo(2220,1290); x.stroke();
- x.textAlign='left'; x.font='22px Arial'; x.fillStyle='#e8d5a0'; x.fillText('Fecha:',180,1350);
- x.textAlign='right'; x.fillText('N.º de Certificado:',1800,1350);
- x.textAlign='center'; x.fillStyle='#666'; x.font='13px Arial'; x.fillText('ESTE CERTIFICADO ES DE USO EXCLUSIVO PARA FICCIÓN Y JUEGOS DE ROL (ROLEPLAY)',1200,1520);
+ x.strokeStyle='#b8922d'; x.lineWidth=8; x.strokeRect(18,18,2364,1564);
+ x.lineWidth=2; x.strokeRect(48,48,2304,1504);
+ x.strokeStyle='#d4af37'; x.lineWidth=1.2; x.strokeRect(78,78,2244,1444);
+ x.fillStyle='#c9a227'; x.textAlign='center';
+ x.font='22px Cinzel'; x.fillText('BASE MILITAR DE HEMET',1200,145);
+ x.font='bold 94px Cinzel'; x.fillStyle='#e8c765'; x.fillText('CERTIFICADO DE GRADUACIÓN',1200,310);
+ x.strokeStyle='#b8922d'; x.lineWidth=1.2; x.beginPath(); x.moveTo(680,860); x.lineTo(1720,860); x.stroke();
+ x.fillStyle='#c9a227'; x.font='22px Cinzel'; x.fillText('( NOMBRE DEL ASPIRANTE )',1200,900);
+ x.beginPath(); x.moveTo(180,1080); x.lineTo(940,1080); x.stroke(); x.moveTo(1460,1080); x.lineTo(2220,1080); x.stroke();
+ x.font='18px Cinzel'; x.fillText('INSTRUCTOR / COMANDANTE',560,1115); x.fillText('OFICIAL DE REGISTRO',1840,1115);
+ x.beginPath(); x.moveTo(180,1260); x.lineTo(2220,1260); x.stroke();
+ x.font='18px Arial'; x.fillStyle='#e8d5a0'; x.textAlign='left'; x.fillText('Fecha:',180,1310); x.textAlign='right'; x.fillText('N.º de Certificado:',2220,1310);
+ x.textAlign='center'; x.fillStyle='#555'; x.font='11px Arial'; x.fillText('ESTE CERTIFICADO ES DE USO EXCLUSIVO PARA FICCIÓN Y JUEGOS DE ROL (ROLEPLAY)',1200,1500);
+ // Espadas cruzadas centro abajo
+ x.fillStyle='#b8922d'; x.font='36px Arial'; x.fillText('⚔️',1200,1240);
 }
 function g(){
  plantilla();
- let N=document.getElementById('n').value.toUpperCase(), D=document.getElementById('d').value||'11', M=document.getElementById('m').value, A=document.getElementById('a').value||'2026', C=document.getElementById('c').value.toUpperCase();
+ let N=document.getElementById('n').value.trim().toUpperCase();
+ let D=document.getElementById('d').value||'11', M=document.getElementById('m').value, A=document.getElementById('a').value||'2026';
+ let C=document.getElementById('c').value.trim().toUpperCase();
  if(C && !C.startsWith('HEM-ACAD-')) return;
- if(N){ let s=110; if(N.length>18) s=85; if(N.length>26) s=68; x.fillStyle='#f8e9a8'; x.font=`bold ${s}px Cinzel`; x.fillText(N,1200,830); }
- x.fillStyle='#f3d87a'; x.font='46px Great Vibes'; x.textAlign='center'; x.fillText('Wilson',565,1050); x.fillText('Xorrus Ramirez',1835,1050);
- x.textAlign='left'; x.fillStyle='#fff'; x.font='20px Arial'; x.fillText(D+' de '+M+' de '+A, 300, 1352);
- x.textAlign='right'; x.font='bold 22px Arial'; x.fillText(C, 2220, 1352);
+ if(N){ let s=90; if(N.length>20) s=72; if(N.length>28) s=58; x.fillStyle='#f8e9a8'; x.font='bold '+s+'px Cinzel'; x.textAlign='center'; x.fillText(N,1200,800); }
+ // FIRMAS YA INCLUIDAS
+ x.textAlign='center'; x.fillStyle='#f3d87a';
+ x.font='52px Great Vibes'; x.fillText('Wilson',560,1040);
+ x.font='48px Great Vibes'; x.fillText('Xorrus Ramirez',1840,1040);
+ x.font='bold 14px Arial'; x.fillStyle='#fff'; x.fillText('GENERAL FEDERAL WILSON',560,1065);
+ x.fillText('MAYOR GENERAL XORRUS RAMIREZ',1840,1065);
+ // Datos variables
+ x.fillStyle='#fff'; x.font='19px Arial'; x.textAlign='left'; x.fillText(D+' de '+M+' de '+A, 270, 1312);
+ x.textAlign='right'; x.font='bold 20px Arial'; x.fillText(C, 2220, 1312);
 }
-function b(){ let a=document.createElement('a'); a.download=document.getElementById('c').value+'.jpg'; a.href=cv.toDataURL('image/jpeg',0.95); a.click(); }
+function b(){ let a=document.createElement('a'); a.download=document.getElementById('c').value+'.jpg'; a.href=cv.toDataURL('image/jpeg',0.96); a.click(); }
 g();
 </script>
 </body>
