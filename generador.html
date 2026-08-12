@@ -1,45 +1,137 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CERTIFICADOS ACADEMIA MILITAR</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
-<style>body{background:#050505;color:#d4af37;text-align:center;font-family:Arial;margin:0;padding:10px}.panel{background:#141414;border:2px solid #d4af37;border-radius:14px;max-width:580px;margin:10px auto;padding:18px}input,select{width:92%;padding:11px;border-radius:8px;border:1px solid #d4af37;background:#222;color:#fff;margin:4px}.row{display:flex;gap:6px;width:92%;margin:0 auto}.btn{background:linear-gradient(#e6c86a,#b8922d);color:#000;border:none;padding:14px;width:92%;border-radius:10px;font-weight:900;margin-top:12px;cursor:pointer}canvas{max-width:99%;border:3px solid #d4af37;border-radius:10px;margin:15px auto;display:block;background:#000}</style>
+<style>
+body{background:#070707;color:#d4af37;text-align:center;font-family:Arial;margin:0;padding:12px}
+.panel{background:#141414;border:2px solid #d4af37;border-radius:15px;max-width:570px;margin:12px auto;padding:20px}
+label{display:block;text-align:left;margin:8px 0 3px 4%;color:#e6c86a;font-weight:bold;font-size:13px}
+input,select{width:92%;padding:12px;border-radius:8px;border:1px solid #b8922d;background:#222;color:#fff;margin:4px;font-size:15px}
+.row{display:flex;gap:6px;width:92%;margin:auto}
+.btn{background:linear-gradient(#f3d87a,#b8922d);color:#000;border:none;padding:14px;width:92%;border-radius:10px;font-weight:900;margin-top:12px;font-size:16px;cursor:pointer}
+canvas{max-width:98%;border:2px solid #d4af37;border-radius:12px;margin:18px auto;display:block;background:#000}
+</style>
 </head>
 <body>
-<h2 style="font-family:Cinzel">CERTIFICADOS ACADEMIA MILITAR</h2>
+
+<h2 style="font-family:Cinzel;letter-spacing:2px">CERTIFICADOS<br>ACADEMIA MILITAR<br><span style="font-size:13px;color:#888;font-family:Arial">BASE MILITAR DE HEMET - 2026</span></h2>
+
 <div class="panel">
-<input id="n" placeholder="NOMBRE DEL ASPIRANTE" oninput="g()">
-<div class="row"><input id="d" type="number" value="11" oninput="g()"><select id="m" onchange="g()"><option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option><option>Mayo</option><option>Junio</option><option>Julio</option><option>Agosto</option><option>Septiembre</option><option>Octubre</option><option>Noviembre</option><option>Diciembre</option></select><input id="a" type="number" value="2026" oninput="g()"></div>
-<input id="c" value="HEM-ACAD-2026-0002-792" oninput="g()">
-<button class="btn" onclick="g()">⚡ GENERAR CERTIFICADO</button>
-<button class="btn" style="background:#222;color:#d4af37;border:1px solid" onclick="b()">⬇️ DESCARGAR HD</button>
+<label>Nombre del Aspirante (solo aparece cuando escribes):</label>
+<input id="nombre" placeholder="Ej: Gustavo Jimenez" oninput="generar()">
+
+<label>Fecha:</label>
+<div class="row">
+<input id="dia" type="number" value="11" oninput="generar()">
+<select id="mes" onchange="generar()">
+<option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option><option>Mayo</option><option>Junio</option><option>Julio</option><option selected>Agosto</option><option>Septiembre</option><option>Octubre</option><option>Noviembre</option><option>Diciembre</option>
+</select>
+<input id="anio" type="number" value="2026" oninput="generar()">
 </div>
-<canvas id="cv" width="2400" height="1700"></canvas>
+
+<label>Código (solo HEM-ACAD-):</label>
+<input id="codigo" value="HEM-ACAD-2026-0002-792" oninput="generar()">
+
+<button class="btn" onclick="generar()">⚡ GENERAR CERTIFICADO</button>
+<button class="btn" style="background:#222;color:#d4af37;border:1px solid #d4af37" onclick="descargar()">⬇️ DESCARGAR HD</button>
+</div>
+
+<canvas id="cv" width="2400" height="1680"></canvas>
+
 <script>
-const cv=document.getElementById('cv'),x=cv.getContext('2d'),bg=new Image();bg.src='plantilla.jpg';
-function g(){
-let N=document.getElementById('n').value.trim().toUpperCase(),D=document.getElementById('d').value||'11',M=document.getElementById('m').value||'Agosto',A=document.getElementById('a').value||'2026',C=document.getElementById('c').value.toUpperCase();
-if(C&&!C.startsWith('HEM-ACAD-'))return;
-x.drawImage(bg,0,0,2400,1700);
+const cv = document.getElementById('cv');
+const ctx = cv.getContext('2d');
+const bg = new Image();
+bg.src = 'plantilla.jpg';
 
-// --- ESTO ES LO QUE ARREGLA LO ENCIMADO ---
-// Tapamos el texto viejo de la plantilla con el mismo fondo
-x.fillStyle='#0e0e0e';
-x.fillRect(180, 640, 2040, 400); // TAPA NOMBRE DEL ASPIRANTE
-x.fillRect(160, 1050, 980, 280); // TAPA FECHA
-x.fillRect(1300, 1050, 940, 280); // TAPA CERTIFICADO No
-x.fillRect(160, 1260, 980, 280); // TAPA COMANDANTE GENERAL
-x.fillRect(1300, 1260, 940, 280); // TAPA DIRECTOR ACADÉMICO
+function generar(){
+  let nom = document.getElementById('nombre').value.trim().toUpperCase();
+  let dia = document.getElementById('dia').value || '11';
+  let mes = document.getElementById('mes').value || 'Agosto';
+  let anio = document.getElementById('anio').value || '2026';
+  let cod = document.getElementById('codigo').value.trim().toUpperCase() || 'HEM-ACAD-2026-0002-792';
 
-x.textAlign='center';
-if(N){x.fillStyle='#f7e7a0';x.font='bold 115px Cinzel,serif';x.fillText(N,1200,870);}
-x.fillStyle='#c9a227';x.font='bold 20px Arial';x.fillText('FECHA:',500,1110);
-x.fillStyle='#e8d5a0';x.font='bold 26px Arial';x.fillText(D+' de '+M+' de '+A,500,1155);
-x.fillStyle='#c9a227';x.font='bold 20px Arial';x.fillText('CERTIFICADO No.',1850,1110);
-x.fillStyle='#f3d87a';x.font='bold 52px Arial';x.fillText(C.split('-').pop(),1850,1165);
-x.font='13px Arial';x.fillText(C,1850,1200);
-x.fillStyle='#d4af37';x.font='italic 48px Brush Script MT,cursive';x.fillText('Wilson',500,1360);
-x.font='bold 18px Arial';x.fillText('GENERAL FEDERAL WILSON',500,1400);x.font='13px Arial';x.fillStyle='#999';x.fillText('COMANDANTE GENERAL',500,1425);
-x.fillStyle='#d4af37';x.font='italic 48px Brush Script MT,cursive';x.fillText('Xorrus Ramirez',1850,1360);
-x.font='bold 18px Arial';x.fillText('XORRUS RAMIREZ',1850,1400);x.font='13px Arial';x.fillStyle='#999';x.fillText('DIRECT
+  if(cod && !cod.startsWith('HEM-ACAD-')) return;
+
+  // Dibuja plantilla
+  ctx.drawImage(bg, 0, 0, 2400, 1680);
+
+  // ARREGLO: Tapamos el texto original de la plantilla para que NO se encime
+  ctx.fillStyle = '#0a0a0a';
+  ctx.fillRect(200, 620, 2000, 380);  // Nombre
+  ctx.fillRect(140, 1020, 260); // Fecha
+  ctx.fillRect(1290, 1020, 970, 260); // Certificado No
+  ctx.fillRect(140, 1250, 1020, 260); // Comandante
+  ctx.fillRect(1290, 1250, 970, 260); // Director
+
+  // 1. NOMBRE - Solo si escribes
+  ctx.textAlign = 'center';
+  if(nom !== ""){
+    ctx.fillStyle = '#f7e7a0';
+    ctx.font = 'bold 120px Cinzel, serif';
+    ctx.fillText(nom, 1200, 850);
+  }
+
+  // 2. FECHA
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#b8922d';
+  ctx.font = 'bold 18px Arial';
+  ctx.fillText('FECHA:', 550, 1090);
+  ctx.fillStyle = '#e8d5a0';
+  ctx.font = 'bold 26px Arial';
+  ctx.fillText(dia + ' de ' + mes + ' de ' + anio, 550, 1135);
+
+  // 3. CERTIFICADO No
+  ctx.fillStyle = '#b8922d';
+  ctx.font = 'bold 18px Arial';
+  ctx.fillText('CERTIFICADO No.', 1850, 1090);
+  ctx.fillStyle = '#f3d87a';
+  ctx.font = 'bold 52px Arial';
+  ctx.fillText(cod.split('-').pop(), 1850, 1145);
+  ctx.font = '13px Arial';
+  ctx.fillStyle = '#c9a227';
+  ctx.fillText(cod, 1850, 1180);
+
+  // 4. FIRMAS
+  ctx.fillStyle = '#d4af37';
+  ctx.font = 'italic 50px Brush Script MT, cursive';
+  ctx.fillText('Wilson', 550, 1330);
+  ctx.font = 'bold 17px Arial';
+  ctx.fillText('GENERAL FEDERAL WILSON', 550, 1370);
+  ctx.font = '12px Arial';
+  ctx.fillStyle = '#888';
+  ctx.fillText('COMANDANTE DE LA BASE', 550, 1395);
+  ctx.fillText('BASE MILITAR DE HEMET', 550, 1412);
+
+  ctx.fillStyle = '#d4af37';
+  ctx.font = 'italic 48px Brush Script MT, cursive';
+  ctx.fillText('Xorrus Ramirez', 1850, 1330);
+  ctx.font = 'bold 17px Arial';
+  ctx.fillText('XORRUS RAMIREZ', 1850, 1370);
+  ctx.font = '12px Arial';
+  ctx.fillStyle = '#888';
+  ctx.fillText('DIRECTOR ACADÉMICO', 1850, 1395);
+  ctx.fillText('UNIDAD DE ACADEMIA', 1850, 1412);
+
+  // 5. FOOTER ROLEPLAY
+  ctx.fillStyle = '#121212';
+  ctx.fillRect(0, 1580, 2400, 100);
+  ctx.fillStyle = '#777';
+  ctx.font = '14px Arial';
+  ctx.fillText('ESTE CERTIFICADO ES DE USO EXCLUSIVO PARA FICCIÓN Y JUEGOS DE ROL (ROLEPLAY)', 1200, 1635);
+}
+
+function descargar(){
+  let a = document.createElement('a');
+  a.download = document.getElementById('codigo').value + '.jpg';
+  a.href = cv.toDataURL('image/jpeg', 0.95);
+  a.click();
+}
+
+bg.onload = generar;
+</script>
+</body>
+</html>
