@@ -1,72 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Generador HEMET ELITE 2026</title>
-<style>
-body{background:#050505;color:#d4af37;text-align:center;font-family:Arial;margin:0;padding:10px}
+<meta charset="UTF-8"><title>CERTIFICADOS ACADEMIA MILITAR</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+<style>body{background:#050505;color:#d4af37;text-align:center;font-family:Arial;margin:0;padding:10px}
 .panel{background:#141414;border:2px solid #d4af37;border-radius:14px;max-width:560px;margin:10px auto;padding:18px}
-label{display:block;text-align:left;margin:8px 0 2px 4%;font-weight:bold;font-size:13px}
-input,select{width:92%;padding:10px;border-radius:8px;border:1px solid #d4af37;background:#222;color:#fff;margin:4px}
+input,select{width:92%;padding:11px;border-radius:8px;border:1px solid #d4af37;background:#222;color:#fff;margin:4px}
 .row{display:flex;gap:6px;width:92%;margin:0 auto}
-.btn{background:linear-gradient(#e6c86a,#b8922d);color:#000;border:none;padding:14px;width:92%;border-radius:10px;font-weight:900;margin-top:12px;font-size:16px;cursor:pointer}
-canvas{max-width:98%;border:2px solid #d4af37;border-radius:8px;margin:15px auto;display:block}
+.btn{background:linear-gradient(#e6c86a,#b8922d);color:#000;border:none;padding:14px;width:92%;border-radius:10px;font-weight:900;margin-top:12px}
+canvas{max-width:98%;border:3px solid #d4af37;border-radius:10px;margin:15px auto;display:block;background:#000}
 </style>
 </head>
 <body>
-<h2>🎖️ CERTIFICADO DE APROBACIÓN - ELITE</h2>
+<h2 style="font-family:Cinzel">CERTIFICADOS ACADEMIA MILITAR<br><span style="font-size:14px;color:#aaa">BASE MILITAR DE HEMET - 2026</span></h2>
 <div class="panel">
-<label>Nombre del Aspirante:</label>
-<input id="nombre" value="NOMBRE DEL ASPIRANTE">
-<label>Fecha:</label>
-<div class="row">
-<input id="dia" type="number" min="1" max="31" value="11" placeholder="Día">
-<select id="mes"><option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option><option>Mayo</option><option>Junio</option><option>Julio</option><option>Agosto</option><option>Septiembre</option><option>Octubre</option><option>Noviembre</option><option>Diciembre</option></select>
-<input id="anio" type="number" value="2026">
-</div>
-<label>Código (SOLO HEM-ACAD):</label>
-<input id="codigo" value="HEM-ACAD-2026-0002-246">
-<label>Comandante General:</label><input id="comandante" value="Xorrus Ramirez - Mayor General">
-<label>Director Académico:</label><input id="director" value="Sr Wilson - General Federal">
+<input id="nombre" placeholder="Nombre del Aspirante - Escribe aquí" oninput="generar()">
+<div class="row"><input id="dia" type="number" value="11" oninput="generar()"><select id="mes" onchange="generar()"><option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option><option>Mayo</option><option>Junio</option><option>Julio</option><option>Agosto</option><option>Septiembre</option><option>Octubre</option><option>Noviembre</option><option>Diciembre</option></select><input id="anio" type="number" value="2026" oninput="generar()"></div>
+<input id="codigo" value="HEM-ACAD-2026-0002-246" oninput="generar()">
 <button class="btn" onclick="generar()">⚡ GENERAR CERTIFICADO</button>
 <button class="btn" style="background:#222;color:#d4af37;border:1px solid" onclick="descargar()">⬇️ DESCARGAR HD</button>
 </div>
-<canvas id="c" width="2400" height="1600"></canvas>
+<canvas id="c" width="2400" height="1690"></canvas>
 <script>
-const canvas=document.getElementById('c'),ctx=canvas.getContext('2d');
-const bg=new Image(); bg.src='plantilla.jpg';
-bg.onload=()=>generar();
-
+const canvas=document.getElementById('c'),ctx=canvas.getContext('2d');const bg=new Image();bg.src='plantilla_elite.jpg';
 function generar(){
-let nom=document.getElementById('nombre').value;
-let dia=document.getElementById('dia').value;
-let mes=document.getElementById('mes').value;
-let anio=document.getElementById('anio').value;
-let cod=document.getElementById('codigo').value.trim().toUpperCase();
-if(!cod.startsWith('HEM-ACAD-')){alert('❌ Solo códigos HEM-ACAD-\\nEj: HEM-ACAD-2026-0002-246');return;}
-ctx.drawImage(bg,0,0,2400,1600);
-// Nombre dorado grande
-ctx.fillStyle='#e6c86a'; ctx.textAlign='center';
-ctx.font='bold 110px Times New Roman'; ctx.fillText(nom.toUpperCase(),1200,850);
-// Fecha
-ctx.fillStyle='#d4af37'; ctx.font='24px Arial';
-ctx.textAlign='left'; ctx.fillText(dia,380,1095);
-ctx.fillText(mes,520,1095);
-ctx.fillText(anio,830,1095);
-// Código
-ctx.textAlign='right'; ctx.font='bold 32px Arial';
-ctx.fillText(cod.replace('HEM-ACAD-2026-',''),1200,1160); // solo número o completo
-ctx.font='22px Arial'; ctx.fillText('CERTIFICADO No. '+cod,2050,1110);
-// Firmas
-ctx.textAlign='center'; ctx.font='18px Arial'; ctx.fillStyle='#d4af37';
-ctx.fillText(document.getElementById('comandante').value,560,1270);
-ctx.fillText(document.getElementById('director').value,1840,1270);
-}
-function descargar(){
-let a=document.createElement('a');
-a.download=document.getElementById('codigo').value+'_'+document.getElementById('nombre').value+'.jpg';
-a.href=canvas.toDataURL('image/jpeg',0.95); a.click();
-}
-</script>
-</body>
-</html>
+let nom=document.getElementById('nombre').value.trim().toUpperCase();
+let dia=document.getElementById('dia').value,mes=document.getElementById('mes').value,anio=document.getElementById('anio').
